@@ -1,26 +1,32 @@
-# *auto-generated*
-A template repository for building python packages. Please replace `$package` with the package's name in `metadata.yml`.
+# loggerlib
+Provides more logging tools.
 
 ## Installation
 ```sh
-*auto-generated*
+$ pip install loggerlib
 ```
 
-## Requirements
-```txt
-*auto-generated*
+## Usage
+```py
+>>> import loggerlib as log
+
+>>> log.warning("hello")
+WARNING:root:hello
+
+>>> log.get_logger("here", log.DEBUG).debug("hello")
+DEBUG:here:hello
 ```
 
 ## See Also
 ### Github repository
-* *auto-generated*
+* https://github.com/Chitaoji/loggerlib/
 
 ### PyPI project
-* *auto-generated*
+* https://pypi.org/project/loggerlib/
 
 ## License
-*auto-generated*
+This project falls under the BSD 3-Clause License.
 
 ## History
-### v0.0.0
+### v0.0.1
 * Initial release.
