@@ -33,6 +33,7 @@ __all__ = [
     "info",
     "warn",
     "warning",
+    "log",
 ]
 
 
@@ -104,6 +105,10 @@ if TYPE_CHECKING:
     def warning():
         """Log a message with severity 'WARNING' on the module logger."""
 
+    @hintwith(logging.log, True)
+    def log():
+        """Log `msg % args` with the integer severity `level` on the module logger."""
+
 else:
 
     def critical(*args, **kwargs):
@@ -133,6 +138,10 @@ else:
     def warning(*args, **kwargs):
         """Magic happens."""
         return get_logger(__get_module_name()).warning(*args, **kwargs)
+
+    def log(*args, **kwargs):
+        """Magic happens."""
+        return get_logger(__get_module_name()).log(*args, **kwargs)
 
 
 def __get_module_name() -> str:
