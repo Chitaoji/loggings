@@ -11,10 +11,11 @@ import sys
 from logging import CRITICAL, DEBUG, ERROR, FATAL, INFO, NOTSET, WARN, WARNING
 from typing import TYPE_CHECKING
 
+from hintwith import hintwith
+
 if TYPE_CHECKING:
     from logging import _Level
 
-    from hintwith import hintwith
 
 __all__ = [
     "get_logger",
@@ -75,73 +76,52 @@ def get_logger(
     return logger
 
 
-if TYPE_CHECKING:
+@hintwith(logging.critical)
+def critical(*args, **kwargs) -> None:
+    """Log a message with severity 'CRITICAL' on the module logger."""
+    get_logger(__get_module_name()).critical(*args, **kwargs)
 
-    @hintwith(logging.critical, True)
-    def critical():
-        """Log a message with severity 'CRITICAL' on the module logger."""
 
-    @hintwith(logging.debug, True)
-    def debug():
-        """Log a message with severity 'DEBUG' on the module logger."""
+@hintwith(logging.debug)
+def debug(*args, **kwargs) -> None:
+    """Log a message with severity 'DEBUG' on the module logger."""
+    get_logger(__get_module_name()).debug(*args, **kwargs)
 
-    @hintwith(logging.error, True)
-    def error():
-        """Log a message with severity 'ERROR' on the module logger."""
 
-    @hintwith(logging.critical, True)
-    def fatal():
-        """Log a message with severity 'CRITICAL' on the module logger."""
+@hintwith(logging.error)
+def error(*args, **kwargs) -> None:
+    """Log a message with severity 'ERROR' on the module logger."""
+    get_logger(__get_module_name()).error(*args, **kwargs)
 
-    @hintwith(logging.info, True)
-    def info():
-        """Log a message with severity 'INFO' on the module logger."""
 
-    @hintwith(logging.warning, True)
-    def warn():
-        """Log a message with severity 'WARNING' on the module logger."""
+@hintwith(logging.critical)
+def fatal(*args, **kwargs) -> None:
+    """Log a message with severity 'CRITICAL' on the module logger."""
+    get_logger(__get_module_name()).critical(*args, **kwargs)
 
-    @hintwith(logging.warning, True)
-    def warning():
-        """Log a message with severity 'WARNING' on the module logger."""
 
-    @hintwith(logging.log, True)
-    def log():
-        """Log `msg % args` with the integer severity `level` on the module logger."""
+@hintwith(logging.info)
+def info(*args, **kwargs) -> None:
+    """Log a message with severity 'INFO' on the module logger."""
+    get_logger(__get_module_name()).info(*args, **kwargs)
 
-else:
 
-    def critical(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).critical(*args, **kwargs)
+@hintwith(logging.warning)
+def warn(*args, **kwargs) -> None:
+    """Log a message with severity 'WARNING' on the module logger."""
+    get_logger(__get_module_name()).warning(*args, **kwargs)
 
-    def debug(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).debug(*args, **kwargs)
 
-    def error(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).error(*args, **kwargs)
+@hintwith(logging.warning)
+def warning(*args, **kwargs) -> None:
+    """Log a message with severity 'WARNING' on the module logger."""
+    get_logger(__get_module_name()).warning(*args, **kwargs)
 
-    def fatal(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).critical(*args, **kwargs)
 
-    def info(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).info(*args, **kwargs)
-
-    def warn(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).warning(*args, **kwargs)
-
-    def warning(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).warning(*args, **kwargs)
-
-    def log(*args, **kwargs):
-        """Magic happens."""
-        return get_logger(__get_module_name()).log(*args, **kwargs)
+@hintwith(logging.log)
+def log(*args, **kwargs) -> None:
+    """Log a message with the integer severity `level` on the module logger."""
+    get_logger(__get_module_name()).log(*args, **kwargs)
 
 
 def __get_module_name() -> str:

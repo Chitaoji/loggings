@@ -6,7 +6,8 @@ HOMEPAGE: https://github.com/Chitaoji/loggings/
 AUTHOR: Chitaoji
 AUTHOR_EMAIL: 2360742040@qq.com
 REQUIRES_PYTHON: ">=3.8.13"
-REQUIRES: []
+REQUIRES: 
+  - hintwith
 EXTRAS: {}
 SOURCE: src
 SUBMODULES: []
