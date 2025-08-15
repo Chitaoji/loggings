@@ -28,6 +28,9 @@ DEBUG:here:hello
 This project falls under the BSD 3-Clause License.
 
 ## History
+### v0.0.3
+* New keyword-only argument `line_info` for `log()`, `debug()`, etc. 
+
 ### v0.0.2
 * New function `log()`, which logs a message with the integer severity `level` on the module logger.
 
