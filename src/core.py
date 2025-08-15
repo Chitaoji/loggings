@@ -9,12 +9,10 @@ NOTE: this module is private. All functions and objects are available in the mai
 import logging
 import sys
 from logging import CRITICAL, DEBUG, ERROR, FATAL, INFO, NOTSET, WARN, WARNING
-from typing import TYPE_CHECKING
-
-from hintwith import hintwith
+from typing import TYPE_CHECKING, Mapping
 
 if TYPE_CHECKING:
-    from logging import _Level
+    from logging import _ExcInfoType, _Level
 
 
 __all__ = [
@@ -76,52 +74,158 @@ def get_logger(
     return logger
 
 
-@hintwith(logging.critical)
-def critical(*args, **kwargs) -> None:
-    """Log a message with severity 'CRITICAL' on the module logger."""
-    get_logger(__get_module_name()).critical(*args, **kwargs)
+def critical(
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
+    get_logger(__get_module_name()).critical(
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
-@hintwith(logging.debug)
-def debug(*args, **kwargs) -> None:
-    """Log a message with severity 'DEBUG' on the module logger."""
-    get_logger(__get_module_name()).debug(*args, **kwargs)
+def debug(
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with severity 'DEBUG' on the module logger."""
+    get_logger(__get_module_name()).debug(
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
-@hintwith(logging.error)
-def error(*args, **kwargs) -> None:
-    """Log a message with severity 'ERROR' on the module logger."""
-    get_logger(__get_module_name()).error(*args, **kwargs)
+def error(
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with severity 'ERROR' on the module logger."""
+    get_logger(__get_module_name()).error(
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
-@hintwith(logging.critical)
-def fatal(*args, **kwargs) -> None:
-    """Log a message with severity 'CRITICAL' on the module logger."""
-    get_logger(__get_module_name()).critical(*args, **kwargs)
+def fatal(
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
+    get_logger(__get_module_name()).critical(
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
-@hintwith(logging.info)
-def info(*args, **kwargs) -> None:
-    """Log a message with severity 'INFO' on the module logger."""
-    get_logger(__get_module_name()).info(*args, **kwargs)
+def info(
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with severity 'INFO' on the module logger."""
+    get_logger(__get_module_name()).info(
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
-@hintwith(logging.warning)
-def warn(*args, **kwargs) -> None:
-    """Log a message with severity 'WARNING' on the module logger."""
-    get_logger(__get_module_name()).warning(*args, **kwargs)
+def warn(
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with severity 'WARNING' on the module logger."""
+    get_logger(__get_module_name()).warning(
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
-@hintwith(logging.warning)
-def warning(*args, **kwargs) -> None:
-    """Log a message with severity 'WARNING' on the module logger."""
-    get_logger(__get_module_name()).warning(*args, **kwargs)
+def warning(
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with severity 'WARNING' on the module logger."""
+    get_logger(__get_module_name()).warning(
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
-@hintwith(logging.log)
-def log(*args, **kwargs) -> None:
-    """Log a message with the integer severity `level` on the module logger."""
-    get_logger(__get_module_name()).log(*args, **kwargs)
+def log(
+    level: int,
+    msg: object,
+    *args: object,
+    exc_info: "_ExcInfoType" = None,
+    stack_info: bool = False,
+    stacklevel: int = 1,
+    extra: Mapping[str, object] | None = None
+) -> None:
+    """Log 'msg % args' with the integer severity `level` on the module logger."""
+    get_logger(__get_module_name()).log(
+        level,
+        msg,
+        *args,
+        exc_info=exc_info,
+        stack_info=stack_info,
+        stacklevel=stacklevel,
+        extra=extra
+    )
 
 
 def __get_module_name() -> str:
