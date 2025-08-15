@@ -87,7 +87,7 @@ def critical(
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).critical(
         msg,
@@ -111,7 +111,7 @@ def debug(
     """Log 'msg % args' with severity 'DEBUG' on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).debug(
         msg,
@@ -135,7 +135,7 @@ def error(
     """Log 'msg % args' with severity 'ERROR' on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).error(
         msg,
@@ -159,7 +159,7 @@ def fatal(
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).critical(
         msg,
@@ -183,7 +183,7 @@ def info(
     """Log 'msg % args' with severity 'INFO' on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).info(
         msg,
@@ -207,7 +207,7 @@ def warn(
     """Log 'msg % args' with severity 'WARNING' on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).warning(
         msg,
@@ -231,7 +231,7 @@ def warning(
     """Log 'msg % args' with severity 'WARNING' on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).warning(
         msg,
@@ -256,7 +256,7 @@ def log(
     """Log 'msg % args' with the integer severity `level` on the module logger."""
     stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
         stack_info = False
     get_logger(__get_module_name()).log(
         level,
