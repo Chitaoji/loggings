@@ -8,6 +8,7 @@ NOTE: this module is private. All functions and objects are available in the mai
 
 import logging
 import sys
+import traceback
 from logging import CRITICAL, DEBUG, ERROR, FATAL, INFO, NOTSET, WARN, WARNING
 from typing import TYPE_CHECKING, Mapping
 
@@ -78,11 +79,16 @@ def critical(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
+    line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).critical(
         msg,
         *args,
@@ -97,11 +103,16 @@ def debug(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
+    line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with severity 'DEBUG' on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).debug(
         msg,
         *args,
@@ -116,11 +127,16 @@ def error(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
+    line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with severity 'ERROR' on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).error(
         msg,
         *args,
@@ -135,11 +151,16 @@ def fatal(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
+    line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).critical(
         msg,
         *args,
@@ -154,11 +175,16 @@ def info(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
+    line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with severity 'INFO' on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).info(
         msg,
         *args,
@@ -173,11 +199,16 @@ def warn(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
+    line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with severity 'WARNING' on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).warning(
         msg,
         *args,
@@ -193,10 +224,15 @@ def warning(
     *args: object,
     exc_info: "_ExcInfoType" = None,
     stack_info: bool = False,
+    line_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with severity 'WARNING' on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).warning(
         msg,
         *args,
@@ -212,11 +248,16 @@ def log(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
+    line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None
 ) -> None:
     """Log 'msg % args' with the integer severity `level` on the module logger."""
+    stacklevel += 1
+    if line_info:
+        msg = str(msg) + "\n" + traceback.extract_stack()[-stacklevel].line
+        stack_info = False
     get_logger(__get_module_name()).log(
         level,
         msg,
