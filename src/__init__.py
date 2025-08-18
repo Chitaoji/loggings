@@ -1,25 +1,24 @@
 """
-# loggerlib
-A template repository for building python packages. Please replace `$package` with the
-package's name in `metadata.yml`.
+# loggings
+Provides more logging tools.
 
 ## Usage
 ```py
->>> import loggerlib as log
+>>> import loggings
 
->>> log.warning("hello")
+>>> loggings.warning("hello")
 WARNING:root:hello
 
->>> log.get_logger("here", log.DEBUG).debug("hello")
+>>> loggings.get_logger("here", loggings.DEBUG).debug("hello")
 DEBUG:here:hello
 ```
 
 ## See Also
 ### Github repository
-* https://github.com/Chitaoji/loggerlib/
+* https://github.com/Chitaoji/loggings/
 
 ### PyPI project
-* https://pypi.org/project/loggerlib/
+* https://pypi.org/project/loggings/
 
 ## License
 This project falls under the BSD 3-Clause License.
