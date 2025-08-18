@@ -82,12 +82,11 @@ def critical(
     line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).critical(
         msg,
@@ -95,7 +94,7 @@ def critical(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
@@ -106,12 +105,11 @@ def debug(
     line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'DEBUG' on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).debug(
         msg,
@@ -119,7 +117,7 @@ def debug(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
@@ -130,12 +128,11 @@ def error(
     line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'ERROR' on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).error(
         msg,
@@ -143,7 +140,7 @@ def error(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
@@ -154,12 +151,11 @@ def fatal(
     line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).critical(
         msg,
@@ -167,7 +163,7 @@ def fatal(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
@@ -178,12 +174,11 @@ def info(
     line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'INFO' on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).info(
         msg,
@@ -191,7 +186,7 @@ def info(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
@@ -202,12 +197,11 @@ def warn(
     line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'WARNING' on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).warning(
         msg,
@@ -215,7 +209,7 @@ def warn(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
@@ -226,12 +220,11 @@ def warning(
     stack_info: bool = False,
     line_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'WARNING' on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).warning(
         msg,
@@ -239,7 +232,7 @@ def warning(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
@@ -251,12 +244,11 @@ def log(
     line_info: bool = False,
     stack_info: bool = False,
     stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None
+    extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with the integer severity `level` on the module logger."""
-    stacklevel += 1
     if line_info:
-        msg = str(msg) + "\n  " + traceback.extract_stack()[-stacklevel].line
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
     get_logger(__get_module_name()).log(
         level,
@@ -265,10 +257,19 @@ def log(
         exc_info=exc_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
-        extra=extra
+        extra=extra,
     )
 
 
 def __get_module_name() -> str:
     frame = sys._getframe(2)  # pylint: disable=protected-access
     return frame.f_globals["__name__"]
+
+
+def __add_line_info(msg: str, stacklevel: int) -> str:
+    stack = traceback.extract_stack()[-max(stacklevel + 2, 1)]
+    msg = (
+        f"{msg}\n  file {stack.filename}, line {stack.lineno}, in {stack.name}"
+        f"\n    {stack.line}"
+    )
+    return msg

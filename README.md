@@ -28,6 +28,9 @@ DEBUG:here:hello
 This project falls under the BSD 3-Clause License.
 
 ## History
+### v0.0.4
+* Updated the message logged by `log()` when `line_info` is True.
+
 ### v0.0.3
 * New keyword-only argument `line_info` for `log()`, `debug()`, etc. 
 
