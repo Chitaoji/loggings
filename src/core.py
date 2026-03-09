@@ -217,8 +217,8 @@ def warning(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
-    stack_info: bool = False,
     line_info: bool = False,
+    stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None:
