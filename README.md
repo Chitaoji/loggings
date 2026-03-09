@@ -11,7 +11,7 @@ $ pip install loggings
 >>> import loggings
 
 >>> loggings.warning("hello")
-[33mWARNING:root:hello[0m  # when output is a TTY
+WARNING:root:hello
 
 >>> loggings.get_logger("here", loggings.DEBUG).debug("hello")
 DEBUG:here:hello

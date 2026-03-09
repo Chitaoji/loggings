@@ -7,7 +7,7 @@ Provides more logging tools.
 >>> import loggings
 
 >>> loggings.warning("hello")
-WARNING:root:hello
+[33mWARNING:root:hello[0m  # when output is a TTY
 
 >>> loggings.get_logger("here", loggings.DEBUG).debug("hello")
 DEBUG:here:hello
@@ -28,7 +28,6 @@ This project falls under the BSD 3-Clause License.
 from typing import List
 
 from . import core
-from .__version__ import __version__
 from .core import *
 
 __all__: List[str] = []
