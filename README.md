@@ -11,7 +11,7 @@ $ pip install loggings
 >>> import loggings
 
 >>> loggings.warning("hello")
-WARNING:root:hello
+[33mWARNING:root:hello[0m  # when output is a TTY
 
 >>> loggings.get_logger("here", loggings.DEBUG).debug("hello")
 DEBUG:here:hello
@@ -28,6 +28,9 @@ DEBUG:here:hello
 This project falls under the BSD 3-Clause License.
 
 ## History
+### v0.0.5
+* Added ANSI colorized output by log level for TTY streams.
+
 ### v0.0.4
 * Updated the message logged by `log()` when `line_info` is True.
 

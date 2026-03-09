@@ -16,6 +16,16 @@ if TYPE_CHECKING:
     from logging import _ExcInfoType, _Level
 
 
+_ANSI_RESET = "\x1b[0m"
+_ANSI_LEVEL_COLORS = {
+    DEBUG: "\x1b[36m",
+    INFO: "\x1b[32m",
+    WARNING: "\x1b[33m",
+    ERROR: "\x1b[31m",
+    CRITICAL: "\x1b[35m",
+}
+
+
 __all__ = [
     "get_logger",
     "CRITICAL",
@@ -67,12 +77,31 @@ def get_logger(
     logger.propagate = False
     if not logger.hasHandlers():
         handler = logging.StreamHandler()
-        formatter = logging.Formatter("%(levelname)s:%(name)s:%(message)s")
+        formatter = __get_formatter(handler)
         handler.setFormatter(formatter)
         logger.addHandler(handler)
     if level is not None:
         logger.setLevel(level)
     return logger
+
+
+class _AnsiColorFormatter(logging.Formatter):
+    """Format log output with ANSI colors by level."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        message = super().format(record)
+        color = _ANSI_LEVEL_COLORS.get(record.levelno)
+        if color is None:
+            return message
+        return f"{color}{message}{_ANSI_RESET}"
+
+
+def __get_formatter(handler: logging.StreamHandler) -> logging.Formatter:
+    fmt = "%(levelname)s:%(name)s:%(message)s"
+    stream = getattr(handler, "stream", None)
+    if stream is not None and hasattr(stream, "isatty") and stream.isatty():
+        return _AnsiColorFormatter(fmt)
+    return logging.Formatter(fmt)
 
 
 def critical(
