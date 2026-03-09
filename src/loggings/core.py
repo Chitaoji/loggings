@@ -16,6 +16,16 @@ if TYPE_CHECKING:
     from logging import _ExcInfoType, _Level
 
 
+_ANSI_RESET = "\x1b[0m"
+_ANSI_LEVEL_COLORS = {
+    DEBUG: "\x1b[36m",
+    INFO: "\x1b[32m",
+    WARNING: "\x1b[33m",
+    ERROR: "\x1b[31m",
+    CRITICAL: "\x1b[35m",
+}
+
+
 __all__ = [
     "get_logger",
     "CRITICAL",
@@ -67,12 +77,44 @@ def get_logger(
     logger.propagate = False
     if not logger.hasHandlers():
         handler = logging.StreamHandler()
-        formatter = logging.Formatter("%(levelname)s:%(name)s:%(message)s")
+        formatter = __get_formatter(handler)
         handler.setFormatter(formatter)
         logger.addHandler(handler)
     if level is not None:
         logger.setLevel(level)
     return logger
+
+
+class _AnsiColorFormatter(logging.Formatter):
+    """Format log output with ANSI colors by level."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        message = super().format(record)
+        color = _ANSI_LEVEL_COLORS.get(record.levelno)
+        if color is None:
+            return message
+        split_at = message.find(record.getMessage())
+        if split_at == -1:
+            return f"{color}{message}{_ANSI_RESET}"
+
+        prefix = message[:split_at]
+        body = message[split_at:]
+        return f"{color}{prefix}{_ANSI_RESET}{body}"
+
+
+def __supports_color(stream: object) -> bool:
+    if stream is not None and hasattr(stream, "isatty") and stream.isatty():
+        return True
+
+    return "ipykernel" in sys.modules
+
+
+def __get_formatter(handler: logging.StreamHandler) -> logging.Formatter:
+    fmt = "%(levelname)s:%(name)s:%(message)s"
+    stream = getattr(handler, "stream", None)
+    if __supports_color(stream):
+        return _AnsiColorFormatter(fmt)
+    return logging.Formatter(fmt)
 
 
 def critical(
@@ -217,8 +259,8 @@ def warning(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
-    stack_info: bool = False,
     line_info: bool = False,
+    stack_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None:
