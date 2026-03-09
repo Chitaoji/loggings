@@ -93,13 +93,26 @@ class _AnsiColorFormatter(logging.Formatter):
         color = _ANSI_LEVEL_COLORS.get(record.levelno)
         if color is None:
             return message
-        return f"{color}{message}{_ANSI_RESET}"
+        split_at = message.find(record.getMessage())
+        if split_at == -1:
+            return f"{color}{message}{_ANSI_RESET}"
+
+        prefix = message[:split_at]
+        body = message[split_at:]
+        return f"{color}{prefix}{_ANSI_RESET}{body}"
+
+
+def __supports_color(stream: object) -> bool:
+    if stream is not None and hasattr(stream, "isatty") and stream.isatty():
+        return True
+
+    return "ipykernel" in sys.modules
 
 
 def __get_formatter(handler: logging.StreamHandler) -> logging.Formatter:
     fmt = "%(levelname)s:%(name)s:%(message)s"
     stream = getattr(handler, "stream", None)
-    if stream is not None and hasattr(stream, "isatty") and stream.isatty():
+    if __supports_color(stream):
         return _AnsiColorFormatter(fmt)
     return logging.Formatter(fmt)
 
