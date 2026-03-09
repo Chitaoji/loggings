@@ -85,12 +85,13 @@ def critical(
     extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
-    __log_for_module(
-        "critical",
+    if line_info:
+        msg = __add_line_info(msg, stacklevel)
+        stack_info = False
+    get_logger(__get_module_name()).critical(
         msg,
         *args,
         exc_info=exc_info,
-        line_info=line_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
         extra=extra,
@@ -107,12 +108,13 @@ def debug(
     extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'DEBUG' on the module logger."""
-    __log_for_module(
-        "debug",
+    if line_info:
+        msg = __add_line_info(msg, stacklevel)
+        stack_info = False
+    get_logger(__get_module_name()).debug(
         msg,
         *args,
         exc_info=exc_info,
-        line_info=line_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
         extra=extra,
@@ -129,12 +131,13 @@ def error(
     extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'ERROR' on the module logger."""
-    __log_for_module(
-        "error",
+    if line_info:
+        msg = __add_line_info(msg, stacklevel)
+        stack_info = False
+    get_logger(__get_module_name()).error(
         msg,
         *args,
         exc_info=exc_info,
-        line_info=line_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
         extra=extra,
@@ -151,12 +154,13 @@ def fatal(
     extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'CRITICAL' on the module logger."""
-    __log_for_module(
-        "critical",
+    if line_info:
+        msg = __add_line_info(msg, stacklevel)
+        stack_info = False
+    get_logger(__get_module_name()).critical(
         msg,
         *args,
         exc_info=exc_info,
-        line_info=line_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
         extra=extra,
@@ -173,12 +177,13 @@ def info(
     extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'INFO' on the module logger."""
-    __log_for_module(
-        "info",
+    if line_info:
+        msg = __add_line_info(msg, stacklevel)
+        stack_info = False
+    get_logger(__get_module_name()).info(
         msg,
         *args,
         exc_info=exc_info,
-        line_info=line_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
         extra=extra,
@@ -194,13 +199,14 @@ def warn(
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None:
-    """Log 'msg % args' with severity 'WARN' on the module logger."""
-    __log_for_module(
-        "warning",
+    """Log 'msg % args' with severity 'WARNING' on the module logger."""
+    if line_info:
+        msg = __add_line_info(msg, stacklevel)
+        stack_info = False
+    get_logger(__get_module_name()).warning(
         msg,
         *args,
         exc_info=exc_info,
-        line_info=line_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
         extra=extra,
@@ -211,18 +217,19 @@ def warning(
     msg: object,
     *args: object,
     exc_info: "_ExcInfoType" = None,
-    line_info: bool = False,
     stack_info: bool = False,
+    line_info: bool = False,
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None:
     """Log 'msg % args' with severity 'WARNING' on the module logger."""
-    __log_for_module(
-        "warning",
+    if line_info:
+        msg = __add_line_info(msg, stacklevel)
+        stack_info = False
+    get_logger(__get_module_name()).warning(
         msg,
         *args,
         exc_info=exc_info,
-        line_info=line_info,
         stack_info=stack_info,
         stacklevel=stacklevel,
         extra=extra,
@@ -241,46 +248,22 @@ def log(
 ) -> None:
     """Log 'msg % args' with the integer severity `level` on the module logger."""
     if line_info:
-        msg = __add_line_info(str(msg), stacklevel + 1)
+        msg = __add_line_info(msg, stacklevel)
         stack_info = False
-    get_logger(__get_module_name(2)).log(
+    get_logger(__get_module_name()).log(
         level,
         msg,
         *args,
         exc_info=exc_info,
         stack_info=stack_info,
-        stacklevel=stacklevel + 1,
+        stacklevel=stacklevel,
         extra=extra,
     )
 
 
-def __get_module_name(depth: int = 2) -> str:
-    frame = sys._getframe(depth)  # pylint: disable=protected-access
+def __get_module_name() -> str:
+    frame = sys._getframe(2)  # pylint: disable=protected-access
     return frame.f_globals["__name__"]
-
-
-def __log_for_module(
-    method: str,
-    msg: object,
-    *args: object,
-    exc_info: "_ExcInfoType" = None,
-    line_info: bool = False,
-    stack_info: bool = False,
-    stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None,
-) -> None:
-    if line_info:
-        msg = __add_line_info(str(msg), stacklevel + 1)
-        stack_info = False
-    logger = get_logger(__get_module_name(3))
-    getattr(logger, method)(
-        msg,
-        *args,
-        exc_info=exc_info,
-        stack_info=stack_info,
-        stacklevel=stacklevel + 1,
-        extra=extra,
-    )
 
 
 def __add_line_info(msg: str, stacklevel: int) -> str:
