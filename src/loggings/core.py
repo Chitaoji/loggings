@@ -16,16 +16,6 @@ if TYPE_CHECKING:
     from logging import _ExcInfoType, _Level
 
 
-_ANSI_RESET = "\x1b[0m"
-_ANSI_LEVEL_COLORS = {
-    DEBUG: "\x1b[36m",
-    INFO: "\x1b[32m",
-    WARNING: "\x1b[33m",
-    ERROR: "\x1b[31m",
-    CRITICAL: "\x1b[35m",
-}
-
-
 __all__ = [
     "get_logger",
     "CRITICAL",
@@ -45,6 +35,15 @@ __all__ = [
     "warning",
     "log",
 ]
+
+ANSI_RESET = "\x1b[0m"
+ANSI_LEVEL_COLORS = {
+    DEBUG: "\x1b[36m",
+    INFO: "\x1b[32m",
+    WARNING: "\x1b[33m",
+    ERROR: "\x1b[31m",
+    CRITICAL: "\x1b[35m",
+}
 
 
 def get_logger(
@@ -90,16 +89,16 @@ class _AnsiColorFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         message = super().format(record)
-        color = _ANSI_LEVEL_COLORS.get(record.levelno)
+        color = ANSI_LEVEL_COLORS.get(record.levelno)
         if color is None:
             return message
         split_at = message.find(record.getMessage())
         if split_at == -1:
-            return f"{color}{message}{_ANSI_RESET}"
+            return f"{color}{message}{ANSI_RESET}"
 
         prefix = message[:split_at]
         body = message[split_at:]
-        return f"{color}{prefix}{_ANSI_RESET}{body}"
+        return f"{color}{prefix}{ANSI_RESET}{body}"
 
 
 def __supports_color(stream: object) -> bool:
