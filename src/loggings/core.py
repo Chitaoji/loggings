@@ -1,8 +1,8 @@
 """
-Contains the core of $package: ... , etc.
+Contains the core of loggings.
 
 NOTE: this module is private. All functions and objects are available in the main
-`$package` namespace - use that instead.
+`loggings` namespace - use that instead.
 
 """
 
