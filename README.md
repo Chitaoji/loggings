@@ -28,6 +28,9 @@ DEBUG:here:hello
 This project falls under the BSD 3-Clause License.
 
 ## History
+### v0.0.6
+* Updated core module docstring text to use the package name `loggings`.
+
 ### v0.0.5
 * Added ANSI colorized output by log level for TTY streams.
 
